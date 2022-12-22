@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "project-blog"
+version = "0.1.0"
+description = ""
+authors = ["Willy Wonka <Woodenehad9798740@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "project_blog"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^0.21.0"
+isort = "^5.11.4"
+black = "^22.12.0"
+autoflake = "^2.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
