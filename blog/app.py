@@ -1,20 +1,35 @@
-from flask import Flask
+from flask import Blueprint, render_template
+
+blog = Blueprint("blog", __name__, template_folder="templates", static_folder=".static")
 
 
-app = Flask(__name__)
 
 
-@app.route("/")
-def index():
-    return "index page"
+@blog.route("")
+def list():
+    return render_template("blog/list.html")
 
 
-@app.route("/<string:message>")
-def print_some_message(message: str = "default text"):
-    return f"some message: {message}"
+@blog.route("/create", methods=["GET", "POST"])
+def create():
+    return render_template("blog/create.html")
 
 
-@app.errorhandler(404)
-def not_found(error):
-    app.logger.error(error)
-    return '404'
+@blog.route("/<int:pk>")
+def detail(pk: int):
+    return render_template("blog/detail.html")
+
+
+@blog.route("/<int:pk>/update", methods=["GET", "POST"])
+def update(pk: int):
+    return render_template("blog/update.html")
+
+
+@blog.route("/<int:pk>/delete", methods=["GET", "POST"])
+def delete(pk: int):
+    return render_template("blog/delete.html")
+
+
+@blog.route("/<int:pk>/confirme_delete", methods=["GET", "POST"])
+def confirme_delete(pk: int):
+    return render_template("blog/confirme_delete.html")

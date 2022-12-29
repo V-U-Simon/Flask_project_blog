@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    article detail
+{% endblock title %}
+{% block content %}
+    <h1 class='pt-3'>article detail</h1>
+    <bp>
+    <article class="blog-post">
+        <h2 class='blog-post-title mb-1'>{{ article.title }}</h2>
+        <p class="blog-post-meta">
+            author: <a href="{{ url_for('user.detail', pk = article.author.id) }}">{{ article.author.name }}</a>
+        </p>
+        <p>{{ article.text }}</p>
+    </article>
+</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+user list
+{% endblock title %}
+
+{% block content %}
+<h1 class='pt-3' >user list</h1>    
+    <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example">
+            <ul class="list-group list-group-flush">
+                {% for user_pk in users %}
+                    <li class="list-group-item">
+                        <a href="{{ url_for('.detail', pk = user_pk ) }}">{{ users[user_pk] }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

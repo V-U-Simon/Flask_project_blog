@@ -1,0 +1,22 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-light rounded"
+         aria-label="Twelfth navbar example">
+        <div class="container-fluid">
+            <div class="navbar-collapse justify-content-md-center ">
+                <ul class="navbar-nav  align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           aria-current="page"
+                           href="{{ url_for('blog.list')}}">blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('article.list')}}">articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('user.list')}}">users</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
