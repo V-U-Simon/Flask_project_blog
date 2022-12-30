@@ -1,20 +1,23 @@
+{% macro nav_link(app_endpoint, name) %}
+    {% if request.endpoint.endswith(app_endpoint) %}
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for(app_endpoint) }}">{{ name }}</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for(app_endpoint) }}">{{ name }}</a>
+        </li>
+    {% endif %}
+{% endmacro %}
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-light rounded"
          aria-label="Twelfth navbar example">
         <div class="container-fluid">
             <div class="navbar-collapse justify-content-md-center ">
                 <ul class="navbar-nav  align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           aria-current="page"
-                           href="{{ url_for('blog.list')}}">blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('article.list')}}">articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('user.list')}}">users</a>
-                    </li>
+                    {{ nav_link('blog.list', 'blog')}}
+                    {{ nav_link('article.list', 'articles')}}
+                    {{ nav_link('user.list', 'users')}}
                 </ul>
             </div>
         </div>

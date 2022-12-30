@@ -18,6 +18,7 @@ def create():
 
 @user.route("/<int:pk>")
 def detail(pk: int):
+    
     return render_template("user/detail.html", user=USERS[pk])
 
 
