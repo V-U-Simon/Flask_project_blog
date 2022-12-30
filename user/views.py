@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-user = Blueprint("user", __name__, template_folder="templates", static_folder=".static")
+user = Blueprint("user", __name__, template_folder="templates", static_folder="static")
 
 
 USERS = {1: "Alice", 2: "Jon", 3: "Mike"}

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
 article = Blueprint(
-    "article", __name__, template_folder="templates", static_folder=".static"
+    "article", __name__, template_folder="templates", static_folder="static"
 )
 
 ARTICLES = {
