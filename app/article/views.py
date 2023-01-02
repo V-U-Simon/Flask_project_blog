@@ -1,8 +1,6 @@
-from flask import Blueprint, render_template
+from flask import render_template
+from app.article import bp
 
-article = Blueprint(
-    "article", __name__, template_folder="templates", static_folder="static"
-)
 
 ARTICLES = {
     1: {
@@ -16,36 +14,36 @@ ARTICLES = {
 }
 
 
-@article.route("")
+@bp.route("")
 def list():
     return render_template("article/list.html", articles=ARTICLES)
 
 
-@article.route("/by_user/<int:user_pk>")
+bp.route("/by_user/<int:user_pk>")
 def list_filter_by_user(user_pk):
     return render_template("article/list.html", articles=ARTICLES)
 
 
-@article.route("/create", methods=["GET", "POST"])
+@bp.route("/create", methods=["GET", "POST"])
 def create():
     return render_template("article/create.html")
 
 
-@article.route("/<int:pk>")
+@bp.route("/<int:pk>")
 def detail(pk: int):
     return render_template("article/detail.html", article=ARTICLES[pk])
 
 
-@article.route("/<int:pk>/update", methods=["GET", "POST"])
+@bp.route("/<int:pk>/update", methods=["GET", "POST"])
 def update(pk: int):
     return render_template("article/update.html")
 
 
-@article.route("/<int:pk>/delete", methods=["GET", "POST"])
+@bp.route("/<int:pk>/delete", methods=["GET", "POST"])
 def delete(pk: int):
     return render_template("article/delete.html")
 
 
-@article.route("/<int:pk>/confirme_delete", methods=["GET", "POST"])
+@bp.route("/<int:pk>/confirme_delete", methods=["GET", "POST"])
 def confirme_delete(pk: int):
     return render_template("article/confirme_delete.html")
