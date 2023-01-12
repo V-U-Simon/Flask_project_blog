@@ -1,12 +1,7 @@
 from flask import flash, render_template, redirect, url_for, request
-from app.user import bp
-from app.models import User
-
-
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import User
-
-# ...
+from app.user import bp
 
 
 @bp.route("/login", methods=["GET", "POST"])

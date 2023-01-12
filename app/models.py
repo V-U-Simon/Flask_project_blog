@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
 def load_user(id):
     return User.query.get(int(id))
 
-
+# waiting in the wings ;)
 # class Article(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     title = db.Column(db.String(140))
