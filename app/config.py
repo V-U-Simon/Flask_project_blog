@@ -6,8 +6,9 @@ load_dotenv(os.path.join(project_path, ".env"))
 
 
 class ConfigPostgres:
-    POSTGRES_URI = "postgresql://:5432/flask_db"
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or POSTGRES_URI
+    # example "postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@:{POSTGRES_PORT}/{POSTGRES_DB}"
+    POSTGRES_URI = "postgresql://user:password@localhost:5432/blog"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or POSTGRES_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
