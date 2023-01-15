@@ -1,10 +1,11 @@
-from flask import flash, render_template, redirect, url_for, request
-from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User
 from app.user import bp
+
+from flask import flash, render_template, redirect, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from app.user.forms import RegistrationForm, LoginForm
+
 from app import db
-from app.user.forms import RegistrationForm
-from flask import current_app
+from app.models import User
 
 
 @bp.route("/registration", methods=["GET", "POST"])
@@ -35,34 +36,18 @@ def registration():
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-
     if current_user.is_authenticated:
         return redirect(url_for(".list"))
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        user = User.query.filter_by(username=username).first()
-
-        if not user or not user.check_password(password):
-            flash("Check your username or password")
-            return redirect(url_for(".login"))
-
-        login_user(user)
-        return redirect(url_for(".detail", id=user.id))
-
-
-
-    # form = LoginForm()
-    # if form.validate_on_submit():
-    #     user = User.query.filter_by(username=form.username.data).first()
-    #     if user is None or not user.check_password(form.password.data):
-    #         flash('Invalid username or password')
-    #         return redirect(url_for('login'))
-    # 	# авторизовать пользователя (в дальнейшем запомнить)
-    #     login_user(user, remember=form.remember_me.data)
-    #     return redirect(url_for('index'))
-    return render_template("user/login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash("Invalid username or password")
+            return redirect(url_for("login"))
+        # авторизовать пользователя (в дальнейшем запомнить)
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for(".profile", id=current_user.id))
+    return render_template("user/login.html", form=form)
 
 
 @bp.route("/logout")
@@ -99,3 +84,16 @@ def delete(id: int):
 @bp.route("/<int:id>/confirme_delete", methods=["GET", "POST"])
 def confirme_delete(id: int):
     return render_template("user/confirme_delete.html")
+
+    # if request.method == "POST":
+    #     username = request.form.get("username")
+    #     password = request.form.get("password")
+
+    #     user = User.query.filter_by(username=username).first()
+
+    #     if not user or not user.check_password(password):
+    #         flash("Check your username or password")
+    #         return redirect(url_for(".login"))
+
+    #     login_user(user)
+    #     return redirect(url_for(".detail", pk=user.id))

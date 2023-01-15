@@ -1,37 +1,22 @@
 {% extends 'base.html' %}
-
-{% block title %}
-    Login page
-{% endblock %}
-
+{% from "macro/form_helpers.html" import render_field, render_flash_messages %}
+{% block title %}Login page{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-danger" role="alert">
-                            {{ message }}
+            <form class="row g-3 mt-3" method="post" action="">
+                {{ form.hidden_tag() }}
+                {{ render_flash_messages() }}
+                {% for field in ['username', 'password',] %}{{ render_field(form[field]) }}{% endfor %}
+                <div class="mb-3 row">
+                    <div class="col-12">
+                        <div class="form-check">
+                            {{ form.remember_me(class="form-check-input") }}
+                            {{ form.remember_me.label(class="form-check-label") }}
                         </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <form class="row g-3 mt-3" method="post" action="{{ url_for('user.login') }}">
-                <div class="mb-3 row">
-                    <label for="username" class="col-sm-2 col-form-label">User name</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="username" name="username">
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="password" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-3">
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">Login</button>
-                </div>
+                <div class="col-auto">{{ form.submit(class="btn btn-primary mb-3'") }}</div>
             </form>
         </div>
     </div>

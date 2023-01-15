@@ -6,12 +6,12 @@ from wtforms import validators
 class RegistrationForm(FlaskForm):
     username = StringField(
         "Username",
-        validators=[validators.InputRequired(), validators.Length(min=4, max=25)],
+        validators=[validators.DataRequired(), validators.Length(min=4, max=25)],
     )
     email = EmailField(
         "Email Address",
         validators=[
-            validators.InputRequired(),
+            validators.DataRequired(),
             validators.Email(),
             validators.Length(min=6, max=35),
         ],
@@ -19,7 +19,6 @@ class RegistrationForm(FlaskForm):
     password = PasswordField(
         "Password",
         validators=[
-            validators.InputRequired(message=""),
             validators.DataRequired(message=""),
             validators.Length(min=6, max=35),
             validators.EqualTo("password_confirm", message="Passwords must match"),
@@ -31,5 +30,15 @@ class RegistrationForm(FlaskForm):
             validators.Length(min=6, max=35),
         ],
     )
-    accept_rules = BooleanField("I accept the site rules", [validators.InputRequired(message="Agree to terms and conditions")])
+    accept_rules = BooleanField(
+        "I accept the site rules",
+        [validators.InputRequired(message="Agree to terms and conditions")],
+    )
+    submit = SubmitField("Sign In")
+
+
+class LoginForm(FlaskForm):
+    username = StringField("Username", validators=[validators.DataRequired()])
+    password = PasswordField("Password", validators=[validators.DataRequired()])
+    remember_me = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
