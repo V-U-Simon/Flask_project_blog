@@ -15,7 +15,7 @@ rel="stylesheet">
             <ul class="list-group list-group-flush">
                 {% for user in users %}
                     <li class="list-group-item">
-                        <a href="{{ url_for('.detail', pk = user.id ) }}" class="red">{{ user.username }}</a>
+                        <a href="{{ url_for('.profile', id = user.id ) }}" class="red">{{ user.username }}</a>
                     </li>
                 {% endfor %}
             </ul>

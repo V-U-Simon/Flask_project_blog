@@ -49,7 +49,9 @@ def login():
             return redirect(url_for(".login"))
 
         login_user(user)
-        return redirect(url_for(".detail", pk=user.id))
+        return redirect(url_for(".detail", id=user.id))
+
+
 
     # form = LoginForm()
     # if form.validate_on_submit():
@@ -77,28 +79,23 @@ def list():
     return render_template("user/list.html", users=users)
 
 
-@bp.route("/create", methods=["GET", "POST"])
-def create():
-    return render_template("user/create.html")
-
-
-@bp.route("/<int:pk>")
+@bp.route("/<int:id>")
 @login_required
-def detail(pk: int):
-    user = User.query.filter_by(id=pk).first()
-    return render_template("user/detail.html", user=user)
+def profile(id: int):
+    user = User.query.filter_by(id=id).first()
+    return render_template("user/profile.html", user=user)
 
 
-@bp.route("/<int:pk>/update", methods=["GET", "POST"])
-def update(pk: int):
+@bp.route("/<int:id>/update", methods=["GET", "POST"])
+def update(id: int):
     return render_template("user/update.html")
 
 
-@bp.route("/<int:pk>/delete", methods=["GET", "POST"])
-def delete(pk: int):
+@bp.route("/<int:id>/delete", methods=["GET", "POST"])
+def delete(id: int):
     return render_template("user/delete.html")
 
 
-@bp.route("/<int:pk>/confirme_delete", methods=["GET", "POST"])
-def confirme_delete(pk: int):
+@bp.route("/<int:id>/confirme_delete", methods=["GET", "POST"])
+def confirme_delete(id: int):
     return render_template("user/confirme_delete.html")
