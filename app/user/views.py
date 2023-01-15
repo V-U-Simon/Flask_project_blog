@@ -2,6 +2,35 @@ from flask import flash, render_template, redirect, url_for, request
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import User
 from app.user import bp
+from app import db
+from app.user.forms import RegistrationForm
+from flask import current_app
+
+
+@bp.route("/registration", methods=["GET", "POST"])
+def registration():
+    if current_user.is_authenticated:
+        return redirect(url_for(".profile", id=current_user.id))
+
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user_by_username = User.query.filter_by(username=form.username.data)
+        user_by_email = User.query.filter_by(email=form.email.data)
+        user = user_by_username.first() or user_by_email.first()
+
+        if user:
+            return redirect(url_for(".registration"))
+
+        u = User(username=form.username.data, email=form.email.data)
+        u.set_password(form.password.data)
+        db.session.add(u)
+        db.session.commit()
+        login_user(u)
+
+        return redirect(url_for(".profile", id=current_user.id))
+
+    return render_template("user/registration.html", form=form)
 
 
 @bp.route("/login", methods=["GET", "POST"])

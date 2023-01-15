@@ -19,6 +19,7 @@
                     {{ nav_link('user.list', 'users')}}
                     {% if current_user.is_anonymous %}
                         {{ nav_link('user.login', 'Login')}}
+                        {{ nav_link('user.registration', 'Registration')}}
                     {% else %}
                         {{ nav_link('user.logout', 'Logout')}}
                     {% endif %}
