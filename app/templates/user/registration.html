@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% from "macro/form_helpers.html" import render_field, render_flash_messages %}
-{% block title %}Login page{% endblock %}
+
+{% block title %}Registration page{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col">
-            <form class="row g-3 mt-3" method="post" action="">
+            <form class="row g-3 mt-3"
+                  method="post"
+                  action="">
                 {{ form.hidden_tag() }}
                 {{ render_flash_messages() }}
-                {% for field in ['username', 'password',] %}{{ render_field(form[field]) }}{% endfor %}
+                {% for field in ['username', "email", "password", "password_confirm" ] %}{{ render_field(form[field]) }}{% endfor %}
                 <div class="mb-3 row">
                     <div class="col-12">
                         <div class="form-check">
-                            {{ form.remember_me(class="form-check-input") }}
-                            {{ form.remember_me.label(class="form-check-label") }}
+                            {{ form.accept_rules(class="form-check-input") }}
+                            {{ form.accept_rules.label(class="form-check-label") }}
                         </div>
                     </div>
                 </div>
@@ -20,4 +23,4 @@
             </form>
         </div>
     </div>
-{% endblock %}
+{% endblock content %}
