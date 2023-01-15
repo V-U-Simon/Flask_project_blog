@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% from "macro/form_helpers.html" import render_field %}
-{% from "macro/form_helpers.html" import render_flash_messages %}
+{% from "macro/form_helpers.html" import render_field, render_flash_messages %}
+
 {% block title %}Registration page{% endblock %}
 {% block content %}
     <div class="row">
@@ -9,7 +9,7 @@
                   method="post"
                   action="">
                 {{ form.hidden_tag() }}
-                {{ render_flash_messages(get_flashed_messages()) }}
+                {{ render_flash_messages() }}
                 {% for field in ['username', "email", "password", "password_confirm" ] %}{{ render_field(form[field]) }}{% endfor %}
                 <div class="mb-3 row">
                     <div class="col-12">
