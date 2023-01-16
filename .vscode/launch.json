@@ -15,9 +15,10 @@
                 "FLASK_DEBUG": "1"
             },
             "args": [
+                "--debug",
                 "run",
-                "--no-debugger",
-                "--no-reload"
+                // "--no-debugger",
+                // "--no-reload"
             ],
             "jinja": true,
             "justMyCode": true

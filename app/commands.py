@@ -21,9 +21,10 @@ def create_init_user():
 
     with app.app_context():
         u = User(
-            username="susan",
+            username="user_1",
             email="name@example.com",
         )
-        u.set_password('cat')
+        
+        u.set_password('pass')
         db.session.add(u)
         db.session.commit()
