@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 {% from "macro/form_helpers.html" import render_field, render_flash_messages %}
-
 {% block title %}Registration page{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col">
-            <form class="row g-3 mt-3"
-                  method="post"
-                  action="">
+            <form class="row g-3 mt-3" method="post" action="">
                 {{ form.hidden_tag() }}
                 {{ render_flash_messages() }}
                 {% for field in ['username', "email", "password", "password_confirm" ] %}{{ render_field(form[field]) }}{% endfor %}

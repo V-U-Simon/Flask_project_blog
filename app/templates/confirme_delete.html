@@ -1,0 +1,8 @@
+<h1>confirme_delete</h1>
+
+
+<form method="post" action="{{ url_for('.delete', id=object.id ) }}">
+<p>Are you sure that you want to delete {{ object }}?
+
+    <input type="submit" value="Submit">
+</form>
