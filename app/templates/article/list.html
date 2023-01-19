@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
-
 {% block title %}
-article list
+    article list
 {% endblock title %}
-
 {% block content %}
-<h1 class='pt-3' >article list</h1>    
+    <h1 class='pt-3'>article list</h1>
+    <a href="{{ url_for('.create' ) }}" class="red">Создать запись</a>
     <div class="bd-example-snippet bd-code-snippet">
         <div class="bd-example">
             <ul class="list-group list-group-flush">
-                {% for article_pk in articles %}
+                {% for article in articles %}
                     <li class="list-group-item">
-                        <a href="{{ url_for('.detail', pk = article_pk ) }}">{{ articles[article_pk].title }}</a>
+                        <a href="{{ url_for('.detail', id=article.id ) }}">{{ article.title }}</a> |
+                        <a href="{{ url_for('.update', id=article.id ) }}">редактировать</a> |
+                        <a href="{{ url_for('.delete', id=article.id ) }}">удалить</a>
                     </li>
                 {% endfor %}
             </ul>

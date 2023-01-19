@@ -8,9 +8,13 @@
     <article class="blog-post">
         <h2 class='blog-post-title mb-1'>{{ article.title }}</h2>
         <p class="blog-post-meta">
-            author: <a href="{{ url_for('user.detail', pk = article.author.id) }}">{{ article.author.name }}</a>
+            <p>
+                author: <a href="{{ url_for('user.profile', id=article.author.user_id) }}">{{ article.author.user.username }}</a>
+            </p>
+            <p>Date Created: {{ article.date_created }}</p>
+            <p>Date Updated: {{ article.date_updated }}</p>
         </p>
-        <p>{{ article.text }}</p>
+        <p>{{ article.body }}</p>
     </article>
 </div>
 {% endblock content %}
