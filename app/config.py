@@ -7,7 +7,9 @@ load_dotenv(os.path.join(project_path, ".env"))
 
 class ConfigPostgres:
     # example "postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@:{POSTGRES_PORT}/{POSTGRES_DB}"
-    POSTGRES_URI = "postgresql://user:password@localhost:5432/blog"
+    # POSTGRES_URI = "postgresql://user:password@localhost:5432/blog"
+    # POSTGRES_URI = "postgresql://user:password@service_db:5432/db_name"
+    POSTGRES_URI = "postgresql://user:password@localhost:5432/db_name"
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or POSTGRES_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

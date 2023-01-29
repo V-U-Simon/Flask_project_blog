@@ -10,6 +10,7 @@ services:
       # 🀄 контекст (папка из которой считается будет запущен Dockerfile)
       context: ..
       # 📂 указание на Dockerfile (сборка образа в случае его отсутствия)
+      # dockerfile: Dockerfile
       dockerfile: ./dockerfiles/Dockerfile
     environment:
       # допустимое имемна хоста в сети докера указано в Networks > Aliases (docker inspect postgres-service_db)
@@ -26,19 +27,21 @@ services:
     depends_on:
       - service_db
 
-  service_db:  # имя хоста (имя контейнера в локльной сети)
+  service_db:
+    # имя хоста (имя контейнера в локльной сети)
     platform: linux/arm64/v8
     container_name: postgres-service_db # имя контейнера
     image: postgres:12 # образ, на основе которого собран
-    environment: # переменные окружения, по сути являющиеся кредами для доступа к БД
+    environment:
+      # переменные окружения, по сути являющиеся кредами для доступа к БД
       POSTGRES_DB: db_name
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-    # расположение базы данных в контейнере
+      # расположение базы данных в контейнере
       # PGDATA: /var/lib/postgresql/data/pgdata
       PGDATA: /var/lib/postgresql/dat2/pgdata
     volumes:
-    # том связывающий базу данных у хоста и контейнера
+      # том связывающий базу данных у хоста и контейнера
       # - ${HOME}/dbs/flask-lesson/pgdata_dev:/var/lib/postgresql/data/pgdata
       - ${HOME}/dbs/flask-lesson/pgdata_dev:/var/lib/postgresql/data2/pgdata
     ports:

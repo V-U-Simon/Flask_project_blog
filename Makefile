@@ -17,8 +17,13 @@ rm-all:
 	docker ps -q | xargs docker stop
 	docker ps -aq | xargs docker rm -f
 	docker images -aq | xargs docker rmi -f
-	docker system prune -a
+	docker system prune -af
+	docker system prune --volumes -f
 
+d-macos:
+	# Get access to Docker VM machine runnig on MacOS
+	docker run -it --rm --privileged --pid=host justincormack/nsenter1
+	
 
 __old:
 	# docker build . -f 'dockerfiles/Dockerfile' -t app
