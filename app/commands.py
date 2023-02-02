@@ -3,17 +3,22 @@ import click
 
 @click.command("create-initial-data")
 def create_initial_data():
-    from app.models import User, Author, Article
+    from app.models import User, Author, Article, Tag
     from app import db
     from wsgi import app
 
     with app.app_context():
 
-        User.query.delete()
-        Author.query.delete()
+        Tag.query.delete()
         Article.query.delete()
+        Author.query.delete()
+        User.query.delete()
 
         user = User(username="user_1", email="name1@example.com")
+        user.set_password("pass")
+        db.session.add(user)
+
+        user = User(username="user_2", email="namesfd1@example.com", is_deleted=True)
         user.set_password("pass")
         db.session.add(user)
 
@@ -31,4 +36,10 @@ def create_initial_data():
             article = Article(title=f"My title {i}", body="Some text will be here")
             article.author = user_author.author
             db.session.add(article)
+        
+        for name in ["flask", "django", "python", "sqlalchemy", "news"]:
+            tag = Tag(name=name)
+            db.session.add(tag)
+
         db.session.commit()
+        print("Inital dataset is created successfully")

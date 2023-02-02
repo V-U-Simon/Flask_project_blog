@@ -1,5 +1,5 @@
 from app.user import bp
-
+from flask import request
 from flask import flash, render_template, redirect, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from app.user.forms import RegistrationForm, LoginForm
@@ -43,7 +43,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash("Invalid username or password")
-            return redirect(url_for("login"))
+            return redirect(url_for(".login"))
         # авторизовать пользователя (в дальнейшем запомнить)
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for(".profile", id=current_user.id))
@@ -78,22 +78,27 @@ def update(id: int):
 
 @bp.route("/<int:id>/delete", methods=["GET", "POST"])
 def delete(id: int):
-    return render_template("user/delete.html")
+    print()
+    if request.method == "POST" and current_user.is_authenticated:
+        if current_user.get_id() == id:
+            return render_template("confirme_delete.html")
+        return redirect(url_for(".list"))
+    return redirect(url_for(".login"))
 
 
-@bp.route("/<int:id>/confirme_delete", methods=["GET", "POST"])
-def confirme_delete(id: int):
-    return render_template("user/confirme_delete.html")
+# @bp.route("/<int:id>/confirme_delete", methods=["GET", "POST"])
+# def confirme_delete(id: int):
+# return render_template("user/confirme_delete.html")
 
-    # if request.method == "POST":
-    #     username = request.form.get("username")
-    #     password = request.form.get("password")
+# if request.method == "POST":
+#     username = request.form.get("username")
+#     password = request.form.get("password")
 
-    #     user = User.query.filter_by(username=username).first()
+#     user = User.query.filter_by(username=username).first()
 
-    #     if not user or not user.check_password(password):
-    #         flash("Check your username or password")
-    #         return redirect(url_for(".login"))
+#     if not user or not user.check_password(password):
+#         flash("Check your username or password")
+#         return redirect(url_for(".login"))
 
-    #     login_user(user)
-    #     return redirect(url_for(".detail", pk=user.id))
+#     login_user(user)
+#     return redirect(url_for(".detail", pk=user.id))

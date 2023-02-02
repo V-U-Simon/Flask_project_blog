@@ -13,9 +13,9 @@ bootstrap = Bootstrap()
 migrate = Migrate()
 
 
-def create_app() -> Flask:
+def create_app(config_class=Config) -> Flask:
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config_class)
 
     register_extensions(app)
     register_commands(app)

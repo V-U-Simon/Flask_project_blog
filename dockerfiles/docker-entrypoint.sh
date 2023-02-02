@@ -5,12 +5,13 @@ set -e
 case "$1" in
     app) # команда для запуска
         # ℹ️ exec необходим для корректного назначения PID=1
-        # exec bash -c """python -u wsgi.py"""
-        exec bash -c "flask run"
+        exec bash -c """python -u wsgi.py"""
         ;;
     bash) # команда для запуска
-        exec /bin/bash
+        # exec /bin/bash
+        bash -c "/bin/bash";
         ;;
     *)
-        exec "$@"
+        exec "$@";
+        ;;
 esac

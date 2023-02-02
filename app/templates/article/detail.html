@@ -7,13 +7,20 @@
     <bp>
     <article class="blog-post">
         <h2 class='blog-post-title mb-1'>{{ article.title }}</h2>
-        <p class="blog-post-meta">
-            <p>
-                author: <a href="{{ url_for('user.profile', id=article.author.user_id) }}">{{ article.author.user.username }}</a>
-            </p>
-            <p>Date Created: {{ article.date_created }}</p>
-            <p>Date Updated: {{ article.date_updated }}</p>
-        </p>
+        <div class="row">
+            <div class="col-6">
+                <p class="blog-post-meta">
+                    <p>
+                        author: <a href="{{ url_for('user.profile', id=article.author.user_id) }}">{{ article.author.user.username }}</a>
+                    </p>
+                    <p>Date Created: {{ article.date_created }}</p>
+                    <p>Date Updated: {{ article.date_updated }}</p>
+                </p>
+            </div>
+            <div class="col-6">
+                {% for tag in article.tags %}<span class="badge bg-primary m-1">{{ tag.name }}</span>{% endfor %}
+            </div>
+        </div>
         <p>{{ article.body }}</p>
     </article>
 </div>
