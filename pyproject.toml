@@ -17,6 +17,7 @@ pymysql = {version = "^1.0.2", optional = true}
 
 # 🖼️ FLASK: 
 psycopg2-binary = "^2.9.5"
+pytest-flask = "^1.2.0"
 [tool.poetry.group.flask.dependencies]
 flask = "^2.2.2"
 flask-login = "^0.6.2"
@@ -37,6 +38,8 @@ pytest = "^7.2.1"
 
 
 # 💾 *SQL: databases
+coverage = "^7.1.0"
+pytest-cov = "^4.0.0"
 [tool.poetry.extras]
 pgsql = ["psycopg2-binary", "psycopg2"]
 mysql = ["pymysql"]

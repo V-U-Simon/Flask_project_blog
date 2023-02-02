@@ -1,3 +1,9 @@
+init:
+	poetry install --all-extras
+
+test:
+	python -m pytest -x
+
 build:
 	docker compose -f "dockerfiles/docker-compose.yaml" build app
 	
@@ -24,7 +30,6 @@ d-macos:
 	# Get access to Docker VM machine runnig on MacOS
 	docker run -it --rm --privileged --pid=host justincormack/nsenter1
 	
-
 __old:
 	# docker build . -f 'dockerfiles/Dockerfile' -t app
 	# docker build . -t blog  
