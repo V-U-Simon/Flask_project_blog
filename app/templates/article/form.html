@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
+{% from "macro/form_helpers.html" import render_field, render_flash_messages %}
 {% block title %}
     Create/update article
 {% endblock title %}
 {% block content %}
     <h1>Create/update Article</h1>
-    <form method="post" action="">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title">
-        <label for="body">Body:</label>
-        <textarea id="body" name="body"></textarea>
-        <label for="author_id">Author ID:</label>
-        <input type="text" id="author_id" name="author_id">
-        <input type="submit" value="Create">
+    <form class="row g-3 mt-3" method="post" action="">
+        {{ form.hidden_tag() }}
+        {{ render_flash_messages() }}
+        {% for field in ['title', "body", "tags" ] %}{{ render_field(form[field]) }}{% endfor %}
+        {{ form.submit(class="col-auto btn btn-primary mb-3") }}
     </form>
 {% endblock content %}
