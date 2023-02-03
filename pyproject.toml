@@ -19,6 +19,7 @@ pymysql = {version = "^1.0.2", optional = true}
 psycopg2-binary = "^2.9.5"
 pytest-flask = "^1.2.0"
 flask-admin = "^1.6.0"
+sqlalchemy = "1.4.46"
 [tool.poetry.group.flask.dependencies]
 flask = "^2.2.2"
 flask-login = "^0.6.2"

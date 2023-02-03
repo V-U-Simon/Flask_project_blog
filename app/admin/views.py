@@ -1,44 +1,31 @@
-from flask import Flask
-
-from app import commands
-from app import db, login_manager, migrate, csrf, admin
-from app.models import User
+# from flask_admin.contrib.sqla import ModelView
+# from flask_login import current_user
+# from flask import redirect, url_for
 
 
-def create_app() -> Flask:
-    app = Flask(__name__)
-    app.config.from_object('blog.config')
+# class CustomAdminView(ModelView):
 
-    register_extensions(app)
-    register_blueprints(app)
-    # register_commands(app)
-    return app
+#     def create_blueprint(self, admin):
+#         blueprint = super().create_blueprint(admin)
+#         blueprint.name = f'{blueprint.name}_admin'
+#         return blueprint
+    
+    
+#     def get_url(self, endpoint, **kwargs):
+#         if not (endpoint.startswith('.') or endpoint.startswith('admin.')):
+#             endpoint = endpoint.replace('.', '_admin.')
+#         return super().get_url(endpoint, **kwargs)
 
-
-def register_extensions(app):
-    db.init_app(app)
-    migrate.init_app(app, db, compare_type=True)
-    csrf.init_app(app)
-    admin.init_app(app)
-
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    
 
 
-def register_blueprints(app: Flask):
-    # from app.auth.views import auth
-    from app.user.views import user
-    # from app.author.views import author
-    from app.article.views import article
-    from app import admin
+# class ArticleAdminView(CustomAdminView):
+#     can_export = True
+#     export_types = ('csv', 'xlsx')
+#     column_filters = ('author_id',)
+    
+    
 
-    app.register_blueprint(user)
-    # app.register_blueprint(auth)
-    # app.register_blueprint(author)
-    app.register_blueprint(article)
 
-    admin.register_views()
+    
+    
