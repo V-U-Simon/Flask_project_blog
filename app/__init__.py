@@ -28,7 +28,7 @@ def create_app(config_class=Config) -> Flask:
     register_commands(app)
     register_blueprints(app)
     register_admins(app, models)
-
+    
     return app
 
 
@@ -58,26 +58,13 @@ def register_blueprints(app: Flask):
 
 
 def register_admins(app, models):
-
     admin.init_app(app)
 
-    from app.admin.views import CustomAdminView
+    from app.admin import views
+    
+    # 🚦 any of admin views shoud be registered here by `add_vew` method
+    admin.add_view(views.TagAdminView(models.Tag, db.session, category="Models"))
+    admin.add_view(views.ArticleAdminView(models.Article, db.session, category="Models"))
+    admin.add_view(views.UserAdminView(models.User, db.session, category="Models"))
 
-    admin.add_view(CustomAdminView(models.Article, db.session, category="Models"))
-
-    return admin
-
-    # from flask_admin.contrib.sqla import ModelView
-    # class CustomAdminView(ModelView):
-
-    #     def create_blueprint(self, admin):
-    #         blueprint = super().create_blueprint(admin)
-    #         blueprint.name = f'{blueprint.name}_admin'
-    #         return blueprint
-
-    #     def get_url(self, endpoint, **kwargs):
-    #         if not (endpoint.startswith('.') or endpoint.startswith('admin.')):
-    #             endpoint = endpoint.replace('.', '_admin.')
-    #         return super().get_url(endpoint, **kwargs)
-
-    ...
+    
