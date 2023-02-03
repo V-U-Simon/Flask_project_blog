@@ -8,11 +8,14 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_admin import Admin
 
+from app.admin.views import CustomAdminIndexView
+
 
 db = SQLAlchemy()
 login = LoginManager()
 bootstrap = Bootstrap()
 migrate = Migrate()
+admin = Admin(index_view=CustomAdminIndexView(), name="Article Admin Panel", template_mode="bootstrap4")
 
 
 def create_app(config_class=Config) -> Flask:
@@ -55,12 +58,13 @@ def register_blueprints(app: Flask):
 
 
 def register_admins(app, models):
-    admin = Admin(name="Article Admin Panel", template_mode="bootstrap4")
+
     admin.init_app(app)
-    
+
     from app.admin.views import CustomAdminView
+
     admin.add_view(CustomAdminView(models.Article, db.session, category="Models"))
-    
+
     return admin
 
     # from flask_admin.contrib.sqla import ModelView
