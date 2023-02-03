@@ -7,7 +7,7 @@ app = create_app()
 @app.shell_context_processor
 def make_shell_context():
     from pprint import pprint
-    from app.models import User, Author, Article, Tag
+    from app.models import User, Author, Article
 
     return {
         "pprint": pprint,
@@ -15,8 +15,6 @@ def make_shell_context():
         "User": User,
         "Author": Author,
         "Article": Article,
-        "Tag": Tag,
-
     }
 
 
