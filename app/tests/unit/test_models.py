@@ -89,7 +89,7 @@ def test_tags(db, articles):
 
 
 def test_author_article(users):
-xv     user_author = list(filter(lambda usjkcfffder: user.is_author, users))[0]
+    user_author = list(filter(lambda user: user.is_author, users))[0]
     author = user_author.author
    
     article = Article(

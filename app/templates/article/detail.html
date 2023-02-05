@@ -13,8 +13,8 @@
                     <p>
                         author: <a href="{{ url_for('user.profile', id=article.author.user_id) }}">{{ article.author.user.username }}</a>
                     </p>
-                    <p>Date Created: {{ article.date_created }}</p>
-                    <p>Date Updated: {{ article.date_updated }}</p>
+                    <p>Date Created: {{ article.created_at }}</p>
+                    <p>Date Updated: {{ article.updated_at }}</p>
                 </p>
             </div>
             <div class="col-6">

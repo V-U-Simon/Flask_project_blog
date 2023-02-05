@@ -8,7 +8,8 @@ def create_initial_data():
     from wsgi import app
 
     with app.app_context():
-
+        db.create_all()
+        
         Tag.query.delete()
         Article.query.delete()
         Author.query.delete()
