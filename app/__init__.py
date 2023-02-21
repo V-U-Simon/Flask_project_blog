@@ -27,11 +27,32 @@ def create_app(config_class=Config) -> Flask:
 
     register_extensions(app)
     register_commands(app)
-    register_blueprints(app)
     register_admins(app, models)
+    register_blueprints(app)
     register_api(app, api)
-
+    register_openapi(app)
+    
     return app
+
+
+def register_openapi(app: Flask):
+    from flask_swagger_ui import get_swaggerui_blueprint
+
+    # todo: try later to generate a swagger specification
+    # from app.app_spec import spec
+    # API_URL = spec.to_dict()
+    
+    API_URL = "/static/swagger.yaml"
+    SWAGGER_URL = ("/swagger")
+
+    SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+        base_url=SWAGGER_URL,
+        api_url=API_URL,
+        config={"app_name": "wsgi"},
+    )
+    app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL, )
+    
+    
 
 
 def register_extensions(app: Flask):
@@ -76,17 +97,17 @@ def register_api(app, api):
     # fmt: off
     from app.api.tag import TagList
     from app.api.tag import TagDetail
-    api.route(TagList, 'tag_list', '/api/tags/', tag='Tag')
+    api.route(TagList, 'tag_list', '/api/tags', tag='Tag')
     api.route(TagDetail, 'tag_detail', '/api/tags/<int:id>', tag='Tag')
 
     from app.api.user import UserList
     from app.api.user import UserDetail
-    api.route(UserList, 'user_list', '/api/users/', tag='User')
+    api.route(UserList, 'user_list', '/api/users', tag='User')
     api.route(UserDetail, 'user_detail', '/api/users/<int:id>', tag='User')
 
     from app.api.author import AuthorList
     from app.api.author import AuthorDetail
-    api.route(AuthorList, 'author_list', '/api/authors/', tag='Author')
+    api.route(AuthorList, 'author_list', '/api/authors', tag='Author')
     api.route(AuthorDetail, 'author_detail', '/api/authors/<int:id>', tag='Author')
 
     from app.api.article import ArticleList
