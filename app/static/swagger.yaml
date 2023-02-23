@@ -1,0 +1,112 @@
+openapi: 3.0.1
+info:
+  title: this is a title
+  description: this is text all about description
+  version: 0.0.1
+servers:
+  - url: http://localhost:5000/api/
+    description: development server 1
+  - url: http://127.0.0.1:5000/api/
+    description: development server 2
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                allOf:
+                  - $ref: '#/components/schemas/Users'
+                  - $ref: '#/components/schemas/Data'
+  /users/{userId}:
+    get:
+      summary: Returns a user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type: integer
+            example: 6
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/User'
+                  - $ref: '#/components/schemas/Data'
+            
+
+    
+components:
+  schemas:
+    Data:
+      type: object
+      properties:
+        jsonapi: 
+          type: object
+          properties:
+            version:
+              type: string
+              example: '1.0.0'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+              example: "http://127.0.0.1:5000/api/users/"
+        meta:
+          type: object
+          properties:
+            count:
+              type: string
+      
+
+    User:
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              example: 'name1@example.com'
+            is_staff:
+              type: boolean
+              example: 'false'
+            username:
+              type: string
+              example: 'user_1'
+        id:
+          type: string
+          example: '5'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+              example: "/api/users/5"
+        type: 
+          type: string
+          example: 'user'
+          
+
+    Users:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+
+              

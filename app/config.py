@@ -31,9 +31,9 @@ class TestConfig(Config):
     DEBUG = True
     ELASTICSEARCH_URL = None
     # Bcrypt algorithm hashing rounds (reduced for testing purposes only!)
-    BCRYPT_LOG_ROUNDS = 4 
+    BCRYPT_LOG_ROUNDS = 4
     # Disable CSRF tokens in the Forms (only valid for testing purposes!)
     WTF_CSRF_ENABLED = False
-    
+
     SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
     # SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or f"sqlite:///{os.path.join(BASEDIR, 'instance', 'test.db')}")
